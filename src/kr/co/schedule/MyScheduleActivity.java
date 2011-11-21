@@ -20,7 +20,7 @@ import android.widget.TabHost.TabSpec;
  */
 public class MyScheduleActivity extends BaseActivity {
 	private ListView listview;	// 요일 리스트
-	private ArrayAdapter<Schedule> adapter[];	// 리스트에 넣을 아답타
+	private ArrayAdapter<Schedule> adapter;	// 리스트에 넣을 아답타
 	private ArrayList<Schedule> list;
 
 	private String selectedDay;		// 탭 선택 날짜
@@ -89,20 +89,21 @@ public class MyScheduleActivity extends BaseActivity {
         // 요일별로 디비에 저장된 내용을 불러와 리스트에 넣는다.
 		int i = 0;
       //  for(String day :days){	
+			list = new ArrayList<Schedule>();
         	ListView listview = (ListView)findViewById(R.id.mon_list);
-    		cursor = db.query(MyDBHelper.DATABASE_TABLE,null, "day = '월' ", null, null, null, "order asc");
+    		cursor = db.query(MyDBHelper.DATABASE_TABLE,null, "day = '월' ", null, null, null, "order_num asc");
     		if( cursor.moveToFirst() ){	// cursor에 row가 1개 이상 있으면 
     			do{
     				Schedule schedule = new Schedule();
-    				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order") ));
+    				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order_num") ));
     				schedule.setSubject( cursor.getString( cursor.getColumnIndex("subject") ));
     				list.add(schedule);
 
     			}while( cursor.moveToNext() );
     		}	
     		// 아답터 셋팅
-    		adapter[i] = new ArrayAdapter<Schedule>(MyScheduleActivity.this, R.layout.custom_list, list);
-            listview.setAdapter(adapter[i]);
+    		adapter = new ArrayAdapter<Schedule>(MyScheduleActivity.this, R.layout.custom_list, list);
+            listview.setAdapter(adapter);
     		i++;
       //  }
     	// 디비는 꼭 닫아준다.

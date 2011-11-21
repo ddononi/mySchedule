@@ -27,7 +27,7 @@ public class MyDBHelper extends SQLiteOpenHelper {
 		// 인덱스, 요일, 교시, 과목, 교수, 메모, 시작시간, 종료시간, 알람여부 
         db.execSQL("create table "+ DATABASE_TABLE
         		+ " ( idx integer primary key autoincrement, day TEXT, "
-        		+ " order integer, subject TEXT, professor TEXT, memo TEXT,"
+        		+ " order_num integer, subject TEXT, professor TEXT, memo TEXT,"
         		+ " s_time TEXT, e_time TEXT );");
       
 	}

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:minWidth="280dip"
+  android:fadingEdge="none"
+  >
+	<LinearLayout
+	  android:background="@color/normal"
+	  android:orientation="vertical"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent">
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="과목명"
+			android:textStyle="bold"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"
+			android:paddingLeft="5dp"
+							
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 		 
+			 
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/subject"
+			android:hint="여기에 과목명"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""						
+		/>
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="교수명"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+									
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 			 
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/professor"
+			android:hint="여기에 교수명"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""				
+		 />
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="메모"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="dp"
+		  	android:layout_height="1dp" /> 			 
+		<EditText
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/memo"
+			android:lines="5"
+			android:hint="메모를 입력하세요"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""				
+		 />
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="시작시간"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="dp"
+		  	android:layout_height="1dp" /> 	
+		<TimePicker
+		    android:id="@+id/s_time"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+	     />
+		
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="종료시간"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="dp"
+		  	android:layout_height="1dp" /> 	
+		<TimePicker
+		    android:id="@+id/e_time"
+		    android:layout_width="wrap_content" 
+		    android:layout_height="wrap_content"
+	     />		
+	 
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/add_btn"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text="추가"	
+			android:onClick="mOnclick"
+	
+		 />		 
+	</LinearLayout>
+	 
+</ScrollView>
