@@ -33,7 +33,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/subject"
-			android:hint="여기에 과목명"
+			android:hint="과목명.."
 			android:textColor="#111111"
 			android:padding="10dp"
 			android:shadowDx="1"
@@ -62,7 +62,7 @@
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/professor"
-			android:hint="여기에 교수명"
+			android:hint=" 교수명.."
 			android:textColor="#111111"
 			android:padding="10dp"
 			android:shadowDx="1"
@@ -117,9 +117,12 @@
 			android:padding="dp"
 		  	android:layout_height="1dp" /> 	
 		<TimePicker
+			android:paddingTop="10px"
 		    android:id="@+id/s_time"
 		    android:layout_width="wrap_content" 
 		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:paddingBottom="10px"
 	     />
 		
 		<TextView
@@ -138,9 +141,12 @@
 			android:padding="dp"
 		  	android:layout_height="1dp" /> 	
 		<TimePicker
+			android:paddingTop="10px"
 		    android:id="@+id/e_time"
 		    android:layout_width="wrap_content" 
 		    android:layout_height="wrap_content"
+		    android:layout_gravity="center_horizontal"
+		    android:paddingBottom="10px"
 	     />		
 	 
 		<Button

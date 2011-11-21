@@ -6,6 +6,8 @@ package kr.co.schedule;
 public class Schedule {
 	private int order;
 	private String subject;
+	private String startTime;
+	private String endTime;
 
 	public int getOrder() {
 		return order;
@@ -21,6 +23,22 @@ public class Schedule {
 
 	public void setSubject(String subject) {
 		this.subject = subject;
+	}
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 }

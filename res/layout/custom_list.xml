@@ -21,7 +21,7 @@
 	 />  
 	<TextView
 		 android:layout_toRightOf="@id/no" 
-		 android:layout_width="fill_parent"
+		 android:layout_width="match_parent"
 		 android:layout_height="wrap_content"
 		 android:textColor="#111111"
 		 android:paddingTop="10dp"
@@ -35,6 +35,23 @@
 		 android:textAppearance="?android:attr/textAppearanceMediumInverse"
 		 android:background="@drawable/selector"
 		 android:id="@+id/item"
+	 />
+	<TextView
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+		 android:textColor="#111111"
+		 android:paddingTop="5px"
+		 android:paddingBottom="5px"
+		 android:paddingRight="15dp"
+		 android:shadowDx="1"
+		 android:shadowDy="1"
+		 android:shadowRadius="1"
+		 android:shadowColor="#ffffff"
+		 android:textAppearance="?android:attr/textAppearanceSearchResultSubtitle"
+		 android:background="@drawable/selector"
+		 android:id="@+id/add_time"
+		 android:layout_alignParentBottom="true"
+		 android:layout_alignParentRight="true"
 	 />
 
  </RelativeLayout>

@@ -28,7 +28,7 @@
                 android:orientation="vertical"
                 android:background="#adc7f7" >
 				<ListView
-					android:id="@+id/mon_list"
+					android:id="@+id/monday_list"
 	              	android:layout_width="fill_parent"
 	               	android:layout_height="fill_parent"
 	               	android:background="#f7f3f7"
@@ -63,7 +63,7 @@
              >
           	              	  
 				<ListView
-					android:id="@+id/wednse_list"
+					android:id="@+id/wednseday_list"
 	              	android:layout_width="fill_parent"
 	               	android:layout_height="fill_parent"
 	               	android:background="#f7f3f7"

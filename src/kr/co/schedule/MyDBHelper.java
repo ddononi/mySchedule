@@ -24,11 +24,11 @@ public class MyDBHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_TABLE);
 		
 		// sqlite가 생성 됐을경우 data table을 생성한다.
-		// 인덱스, 요일, 교시, 과목, 교수, 메모, 시작시간, 종료시간, 알람여부 
+		// 인덱스, 요일, 교시, 과목, 교수, 메모, 시작시간, 종료시간, 태그칼라, 알람여부 
         db.execSQL("create table "+ DATABASE_TABLE
         		+ " ( idx integer primary key autoincrement, day TEXT, "
         		+ " order_num integer, subject TEXT, professor TEXT, memo TEXT,"
-        		+ " s_time TEXT, e_time TEXT );");
+        		+ " s_time TEXT, e_time TEXT, tag_color TEXT, alarm integer );");
       
 	}
 	
