@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TabHost
+    android:id="@+id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <!--  월요일 -->
+            <LinearLayout
+            	android:id="@+id/monday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" 
+                android:orientation="vertical"
+                android:background="#adc7f7" >
+				<ListView
+					android:id="@+id/mon_list"
+	              	android:layout_width="fill_parent"
+	               	android:layout_height="fill_parent"
+	               	android:background="#f7f3f7"
+	               	android:cacheColorHint="#00000000"	               						
+				 />
+			</LinearLayout> 
+			
+            <!-- 화요일 -->
+            <LinearLayout
+            	android:id="@+id/tuesday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" 
+                android:orientation="vertical"
+                android:background="#adc7f7"           	
+             >
+          	              	  
+				<ListView
+					android:id="@+id/tuesday_list"
+	              	android:layout_width="fill_parent"
+	               	android:layout_height="fill_parent"
+	               	android:background="#f7f3f7"
+	               	android:cacheColorHint="#00000000"	               						
+				 />
+			</LinearLayout>
+			<!--  수요일 -->
+            <LinearLayout
+            	android:id="@+id/wednesday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 android:orientation="vertical" 
+                android:background="#adc7f7"           	
+             >
+          	              	  
+				<ListView
+					android:id="@+id/wednse_list"
+	              	android:layout_width="fill_parent"
+	               	android:layout_height="fill_parent"
+	               	android:background="#f7f3f7"
+	               	android:cacheColorHint="#00000000"	               						
+				 />
+			</LinearLayout> 
+			<!--  목요일  -->
+            <LinearLayout
+            	android:id="@+id/thursday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                 android:orientation="vertical" 
+                android:background="#adc7f7"           	
+             >
+          	              	  
+				<ListView
+					android:id="@+id/thursday_list"
+	              	android:layout_width="fill_parent"
+	               	android:layout_height="fill_parent"
+	               	android:background="#f7f3f7"
+	               	android:cacheColorHint="#00000000"	               						
+				 />
+			</LinearLayout>
+			
+            <!--  금요일  -->    
+            <LinearLayout
+            	android:id="@+id/friday"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical" 
+                android:background="#adc7f7"           	
+             >
+          	              	  
+				<ListView
+					android:id="@+id/friday_list"
+	              	android:layout_width="fill_parent"
+	               	android:layout_height="fill_parent"
+	               	android:background="#f7f3f7"
+	               	android:cacheColorHint="#00000000"	               						
+				 />
+			</LinearLayout> 			
+                						                      
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>  
+</LinearLayout>
