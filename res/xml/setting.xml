@@ -1,0 +1,24 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="알림설정" >
+
+        <CheckBoxPreference
+            android:key="sound"
+            android:summary="알람이 발생하면 사운드로 알려줌"
+            android:title="소리알림" />
+
+        <CheckBoxPreference
+            android:key="vibration"
+            android:summary="알람이 발생하면  진동으로 알려줌"
+            android:title="진동발생" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="버젼정보" >
+
+        <PreferenceScreen
+            android:key="version"
+            android:title="프로그램 버전"
+            android:summary="MySchedule Ver 0.9b" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

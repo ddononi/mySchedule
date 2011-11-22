@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:minWidth="380dip"
+  android:fadingEdge="none"
+  >
+	<LinearLayout
+	  android:background="@color/normal"
+	  android:orientation="vertical"
+	  android:layout_width="fill_parent"
+	  android:minWidth="380dp"
+	  android:layout_height="fill_parent">
+   	 <TextSwitcher
+   	 		android:layout_alignParentLeft="true"
+            android:inAnimation="@android:anim/slide_in_left"
+            android:outAnimation="@android:anim/slide_out_right"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/title"
+			android:textSize="22dip"
+			android:textColor="#5a9af7"
+			android:textStyle="bold"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="@color/select"
+			android:text=""			
+		 />
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="교수명"
+			android:textStyle="bold"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"
+			android:paddingLeft="5dp"
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 		 
+			 
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/professor"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""						
+		/>
+		
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="강의실"
+			android:textStyle="bold"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"
+			android:paddingLeft="5dp"
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 		 
+			 
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/classroom"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""						
+		/>		
+		
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="수업시간"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="dp"
+		  	android:layout_height="1dp" /> 			 
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/time"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""				
+		 />
+				
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="메모"
+			android:textSize="16dip"
+			android:background="@color/select"
+			android:textColor="@color/normal"	
+			android:paddingLeft="5dp"
+									
+		 />
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 			 
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/memo"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text=""				
+		 />
+
+		<LinearLayout
+			android:background="#5a9af7"
+		 	android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:padding="1dp"
+		  	android:layout_height="1dp" /> 			 
+		<Button
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/modify_btn"
+			android:textColor="#111111"
+			android:padding="10dp"
+			android:shadowDx="1"
+			android:shadowDy="1"
+			android:shadowRadius="1"
+			android:shadowColor="#ffffff"
+			android:text="수정"	
+		 />		 
+	</LinearLayout>
+	 
+</ScrollView>

@@ -2,6 +2,8 @@ package kr.co.schedule;
 
 import java.util.ArrayList;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +14,11 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -27,6 +33,8 @@ public class MyScheduleActivity extends BaseActivity {
 	private boolean isTwoClickBack;	// 두번 뒤로버튼 클릭 여부
 	private String[] days= {"월", "화", "수", "목", "금"};
 	private String selectedDay = days[0];		// 탭 선택 날짜 초기는 월요일
+	private boolean deleteMode = false;			// delete mode;
+	
 	
 	// element
 	private ListView[] listview = new ListView[days.length];	// 요일 리스트
@@ -111,6 +119,9 @@ public class MyScheduleActivity extends BaseActivity {
     				Schedule schedule = new Schedule();
     				schedule.setSubject( cursor.getString( cursor.getColumnIndex("subject") ));
     				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order_num") ));
+    				schedule.setProfessor(cursor.getString(cursor.getColumnIndex("professor") ));
+    				schedule.setClassroom(cursor.getString(cursor.getColumnIndex("classroom") ));
+    				schedule.setMemo(cursor.getString(cursor.getColumnIndex("memo") ));
     				schedule.setStartTime(cursor.getString(cursor.getColumnIndex("s_time") ));
     				schedule.setEndTime(cursor.getString(cursor.getColumnIndex("e_time") ));
     				list.add(schedule);
@@ -118,8 +129,64 @@ public class MyScheduleActivity extends BaseActivity {
     			}while( cursor.moveToNext() );	// 다음 커서가 있으면 내용을 가져온다.
     		}	
     		// 아답터 셋팅
-    		adapter[i] = new MyAdapter(MyScheduleActivity.this, list);
+    		adapter[i] = new MyAdapter(list);
             listview[i].setAdapter(adapter[i]);
+            // 아이템 클릭 이벤트 설정           
+            listview[i].setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View view,
+						int position, long arg3) {
+					// TODO Auto-generated method stub
+				//	Toast.makeText(MyScheduleActivity.this , position +"", Toast.LENGTH_SHORT).show();
+					Log.i("aaa", position +"");
+					ScheduleDialog dlg = new ScheduleDialog(MyScheduleActivity.this, R.style.Dialog);
+					dlg.makeDialog(selectedDay, position).show();
+				}
+			});
+            final int ii = i;	// 이너클래스에서 i값을 읽기위해
+            // deleteMode가 true일때 길게 누르면 삭제처리
+            listview[i].setOnItemLongClickListener(new OnItemLongClickListener() {
+
+				@Override
+				public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+						int position, long arg3) {
+					// TODO Auto-generated method stub
+					final int orderNum = position;
+					if(deleteMode){	// 삭제모드일때만 삭제 처리
+						new AlertDialog.Builder(MyScheduleActivity.this)
+						.setMessage("삭제하시겠습니까?")
+						.setTitle("삭제처리")
+						.setPositiveButton("확인",	// 확인버튼을 누르면 삭제
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										// TODO Auto-generated method stub
+										MyDBHelper mydb = null;
+										SQLiteDatabase db = null;
+										try{
+											// db 에서 삭제 한다.
+											mydb = new MyDBHelper(MyScheduleActivity.this);	//db 도우미 얻기
+											db = mydb.getWritableDatabase();	// 쓰기모드로 하자
+											int result = 0;
+											result = db.delete(MyDBHelper.DATABASE_TABLE, "day = ? and order_num = ? ", 
+													new String[]{selectedDay, String.valueOf(orderNum)});
+											if(result > 0){	// 삭제된 내용이 있으면 메세지를 띄운다.
+												Toast.makeText(MyScheduleActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
+												MyScheduleActivity.this.reload(ii);	// 리스트를 다시 읽어낸다.
+												adapter[ii].notifyDataSetChanged(); // 변경통지
+											}
+										}finally{
+											db.close();	
+										}
+									}
+								})
+						.setNegativeButton("취소",null).show();
+					}
+					return false;
+				}
+			});
+            
     		i++;
         }
     	// 디비는 꼭 닫아준다.
@@ -141,6 +208,9 @@ public class MyScheduleActivity extends BaseActivity {
 				Schedule schedule = new Schedule();
 				schedule.setSubject( cursor.getString( cursor.getColumnIndex("subject") ));
 				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order_num") ));
+				schedule.setProfessor(cursor.getString(cursor.getColumnIndex("professor") ));
+				schedule.setClassroom(cursor.getString(cursor.getColumnIndex("classroom") ));
+				schedule.setMemo(cursor.getString(cursor.getColumnIndex("memo") ));				
 				schedule.setStartTime(cursor.getString(cursor.getColumnIndex("s_time") ));
 				schedule.setEndTime(cursor.getString(cursor.getColumnIndex("e_time") ));
 				list.add(schedule);
@@ -148,7 +218,7 @@ public class MyScheduleActivity extends BaseActivity {
 			}while( cursor.moveToNext() );	// 다음 커서가 있으면 내용을 가져온다.
 		}	
 		// 아답터 셋팅
-		adapter[where] = new MyAdapter(MyScheduleActivity.this, list);
+		adapter[where] = new MyAdapter(list);
 		listview[where].setAdapter(adapter[where]);
     	// 디비는 꼭 닫아준다.
 		db.close();
@@ -161,7 +231,8 @@ public class MyScheduleActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu){
     	super.onCreateOptionsMenu(menu);
     	menu.add(0,1,0, "추가");
-    	menu.add(0,2,0, "옵션"); 
+    	menu.add(0,2,0, "삭제모드");
+    	menu.add(0,3,0, "옵션");
     	//item.setIcon();
     	return true;
     }
@@ -177,11 +248,21 @@ public class MyScheduleActivity extends BaseActivity {
 				intent.putExtra("day", selectedDay);	// 선택된 요일도 같이 실어 보내자
 				startActivityForResult(intent, 1);	// 특별한 요청코드는 필요없음
 				return true;
+			case 2:		
+				deleteMode = !deleteMode;
+				if(deleteMode){
+					item.setTitle("삭제모드 종료");
+					Toast.makeText(MyScheduleActivity.this, "항목을 길게 누르면 삭제됩니다.", Toast.LENGTH_SHORT).show();
+				}else{
+					item.setTitle("삭제모드");
+					Toast.makeText(MyScheduleActivity.this, "삭제모드를 끝냅니다.", Toast.LENGTH_SHORT).show();
+				}
+				return true;	
 
-			case 2:		// 설정 엑티비티
+			case 3:		// 설정 프리퍼런스엑티비티
 				intent = new Intent(getBaseContext(), SettingActivity.class);
 				startActivity(intent);
-				return true;			
+				return true;				
     	}
     	return false;
     }
@@ -191,12 +272,15 @@ public class MyScheduleActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
+		// 수정 및 추가시 결과값에 따른 어댑터 변경 통지
 		if(resultCode == RESULT_OK){	//리턴값이 정상이면
 			for(int i=0; i < days.length; i++){	
 				if(days[i] == selectedDay){	// 현재요일의 순번째를 찾은후
-					Log.i("aaa", "zzz" + days[i] );
+					Log.i("aaa", "day : " + days[i] );
 					reload(i);
 					adapter[i].notifyDataSetChanged();	// 찾은 번째의 아탑터 변경통지
+					TabHost host = (TabHost)findViewById(R.id.tabhost);
+					host.setCurrentTab(i);
 				}
 			}
 		}

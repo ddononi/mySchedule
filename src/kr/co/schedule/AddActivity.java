@@ -10,11 +10,12 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class AddActivity extends Activity implements TimePicker.OnTimeChangedListener {
+public class AddActivity extends BaseActivity implements TimePicker.OnTimeChangedListener {
 	private int maxiumOrder;	// 현재 몇교시까지 있는지 
 	private String day; 		// 추가할 요일이 무슨 요일인지
 	private TimePicker startPicker, endPicker;
@@ -22,7 +23,10 @@ public class AddActivity extends Activity implements TimePicker.OnTimeChangedLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.add_schedule);
+        setContentView(R.layout.form_schedule);
+        
+        // 추가로 이름 변경
+        ((Button)findViewById(R.id.btn)).setText("수정완료");        
         // 엘리먼트 후킹
         startPicker = (TimePicker)findViewById(R.id.s_time);
         endPicker = (TimePicker)findViewById(R.id.e_time);
@@ -50,7 +54,7 @@ public class AddActivity extends Activity implements TimePicker.OnTimeChangedLis
 		SQLiteDatabase db = dbhp.getReadableDatabase();	// 읽기모도로 해주자
    		Cursor cursor = db.query(MyDBHelper.DATABASE_TABLE, 
    				null, "day = ? ", new String[]{day,}, null, null, null);
-   		count = cursor.getColumnCount();	// 날짜의  갯수를 얻어온다.
+   		count = cursor.getCount();	// 날짜의  갯수를 얻어온다.
     	// 디비는 꼭 닫아준다.
 		db.close();
 		return count;
@@ -67,7 +71,7 @@ public class AddActivity extends Activity implements TimePicker.OnTimeChangedLis
 	
 	/** 추가 버튼 클릭 */
 	public void mOnclick(View v){
-		if(v.getId() == R.id.add_btn){
+		if(v.getId() == R.id.btn){
 			addSchedule();
 		}
 	}
@@ -80,15 +84,15 @@ public class AddActivity extends Activity implements TimePicker.OnTimeChangedLis
 		// 시간가져오기
 		int startHour = ((TimePicker)findViewById(R.id.s_time)).getCurrentHour();
 		int endHour = ((TimePicker)findViewById(R.id.e_time)).getCurrentHour();
-		int startMin = ((TimePicker)findViewById(R.id.s_time)).getCurrentHour();
-		int endMin = ((TimePicker)findViewById(R.id.e_time)).getCurrentHour();
-		String startTime = String.format("%d:%d", startHour, startMin);	// 시작 시간
-		String endTime = String.format("%d:%d", endHour, endMin);		// 종료 시간
+		int startMin = ((TimePicker)findViewById(R.id.s_time)).getCurrentMinute();
+		int endMin = ((TimePicker)findViewById(R.id.e_time)).getCurrentMinute();
+		String startTime = String.format("%02d:%02d", startHour, startMin);	// 시작 시간
+		String endTime = String.format("%02d:%02d", endHour, endMin);		// 종료 시간
 		// 과목명등 입력 내용 가져오기
 		String subject = ((EditText)findViewById(R.id.subject)).getText().toString();
 		String professor = ((EditText)findViewById(R.id.professor)).getText().toString();
 		String memo = ((EditText)findViewById(R.id.memo)).getText().toString();
-	
+		String classroom = ((EditText)findViewById(R.id.classroom)).getText().toString();
 		// TODO Auto-generated method stub
 		MyDBHelper dbhp =  new MyDBHelper(this);	// 도우미 클래스
 		SQLiteDatabase db = dbhp.getReadableDatabase();	// 읽기모도로 해주자
@@ -98,6 +102,7 @@ public class AddActivity extends Activity implements TimePicker.OnTimeChangedLis
 		cv.put("order_num", maxiumOrder);
 		cv.put("subject", subject);
 		cv.put("professor", professor);
+		cv.put("classroom", classroom);
 		cv.put("memo", memo);
 		cv.put("s_time", startTime);
 		cv.put("e_time", endTime);

@@ -3,5 +3,12 @@
 
     <string name="hello">Hello World, MyScheduleActivity!</string>
     <string name="app_name">MySchedule</string>
-
+	<string-array name="aaaaa">
+	    <item >1</item>
+	    <item >2</item>
+	    <item >3</item>
+	    <item >4</item>
+	    <item >5</item>
+	    
+	</string-array>
 </resources>

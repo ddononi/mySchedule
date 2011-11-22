@@ -12,10 +12,7 @@ import android.widget.BaseAdapter;
 
 public class MyAdapter extends BaseAdapter {
 	private ArrayList<Schedule> list;
-	private Context context;
-	private int layout;
-	public MyAdapter(Context context, ArrayList<Schedule> list ){
-		this.context = context;
+	public MyAdapter(ArrayList<Schedule> list ){
 		this.list = list;
 	}
 	/** 전체 리스트 */
