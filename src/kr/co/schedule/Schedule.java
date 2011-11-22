@@ -4,6 +4,7 @@ package kr.co.schedule;
  * 스케쥴 저장 클래스
  */
 public class Schedule {
+	private int index;			// 인덱스
 	private String day;			// 요일
 	private int order;			// 교시
 	private String subject;		// 과목
@@ -75,6 +76,14 @@ public class Schedule {
 
 	public void setDay(String day) {
 		this.day = day;
+	}
+
+	public int getIndex() {
+		return index;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 }

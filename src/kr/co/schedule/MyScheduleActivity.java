@@ -39,7 +39,8 @@ public class MyScheduleActivity extends BaseActivity {
 	// element
 	private ListView[] listview = new ListView[days.length];	// 요일 리스트
 	private MyAdapter[] adapter = new MyAdapter[days.length];	// 리스트에 넣을 아답타
-	private ArrayList<Schedule> list;
+	@SuppressWarnings("unchecked")
+	private ArrayList<Schedule>[] list = (ArrayList<Schedule>[]) new ArrayList<?>[days.length];
 
 	private int[] listElem = {R.id.monday_list,		// 월요일  ListView
 						  R.id.tuesday_list,		// 화요일  ListView
@@ -110,13 +111,14 @@ public class MyScheduleActivity extends BaseActivity {
         // 요일별로 디비에 저장된 내용을 불러와 리스트에 넣는다.
 		int i = 0;
         for(String day :days){	// 요일배열을 돌면서
-			list = new ArrayList<Schedule>();
+			list[i] = new ArrayList<Schedule>();
         	listview[i] = (ListView)findViewById(listElem[i]);	// 엘리먼트를 후킹하고
         	// 교시순으로 정렬
     		cursor = db.query(MyDBHelper.DATABASE_TABLE, null, "day = ? ", new String[]{day,}, null, null, "order_num asc");
     		if( cursor.moveToFirst() ){	// cursor에 row가 1개 이상 있으면 
     			do{
     				Schedule schedule = new Schedule();
+    				schedule.setIndex( cursor.getInt( cursor.getColumnIndex("idx") ));
     				schedule.setSubject( cursor.getString( cursor.getColumnIndex("subject") ));
     				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order_num") ));
     				schedule.setProfessor(cursor.getString(cursor.getColumnIndex("professor") ));
@@ -124,12 +126,12 @@ public class MyScheduleActivity extends BaseActivity {
     				schedule.setMemo(cursor.getString(cursor.getColumnIndex("memo") ));
     				schedule.setStartTime(cursor.getString(cursor.getColumnIndex("s_time") ));
     				schedule.setEndTime(cursor.getString(cursor.getColumnIndex("e_time") ));
-    				list.add(schedule);
+    				list[i].add(schedule);
 
     			}while( cursor.moveToNext() );	// 다음 커서가 있으면 내용을 가져온다.
     		}	
     		// 아답터 셋팅
-    		adapter[i] = new MyAdapter(list);
+    		adapter[i] = new MyAdapter(list[i]);
             listview[i].setAdapter(adapter[i]);
             // 아이템 클릭 이벤트 설정           
             listview[i].setOnItemClickListener(new OnItemClickListener() {
@@ -140,7 +142,9 @@ public class MyScheduleActivity extends BaseActivity {
 				//	Toast.makeText(MyScheduleActivity.this , position +"", Toast.LENGTH_SHORT).show();
 					Log.i("aaa", position +"");
 					ScheduleDialog dlg = new ScheduleDialog(MyScheduleActivity.this, R.style.Dialog);
-					dlg.makeDialog(selectedDay, position).show();
+					if(dlg.makeDialog(selectedDay, position) != null){
+						dlg.show();
+					}
 				}
 			});
             final int ii = i;	// 이너클래스에서 i값을 읽기위해
@@ -169,8 +173,9 @@ public class MyScheduleActivity extends BaseActivity {
 											mydb = new MyDBHelper(MyScheduleActivity.this);	//db 도우미 얻기
 											db = mydb.getWritableDatabase();	// 쓰기모드로 하자
 											int result = 0;
-											result = db.delete(MyDBHelper.DATABASE_TABLE, "day = ? and order_num = ? ", 
-													new String[]{selectedDay, String.valueOf(orderNum)});
+											String idx = String.valueOf(list[ii].get(orderNum).getIndex());
+											result = db.delete(MyDBHelper.DATABASE_TABLE, "idx = ? ", 
+													new String[]{idx, });
 											if(result > 0){	// 삭제된 내용이 있으면 메세지를 띄운다.
 												Toast.makeText(MyScheduleActivity.this, "삭제되었습니다.", Toast.LENGTH_SHORT).show();
 												MyScheduleActivity.this.reload(ii);	// 리스트를 다시 읽어낸다.
@@ -202,10 +207,11 @@ public class MyScheduleActivity extends BaseActivity {
 		Cursor cursor = null;
     	// 교시순으로 정렬
 		cursor = db.query(MyDBHelper.DATABASE_TABLE, null, "day = ? ", new String[]{this.selectedDay,}, null, null, "order_num asc");
-		list = new ArrayList<Schedule>();
+		list[where] = new ArrayList<Schedule>();
 		if( cursor.moveToFirst() ){	// cursor에 row가 1개 이상 있으면 
 			do{
 				Schedule schedule = new Schedule();
+				schedule.setIndex( cursor.getInt( cursor.getColumnIndex("idx") ));
 				schedule.setSubject( cursor.getString( cursor.getColumnIndex("subject") ));
 				schedule.setOrder( cursor.getInt( cursor.getColumnIndex("order_num") ));
 				schedule.setProfessor(cursor.getString(cursor.getColumnIndex("professor") ));
@@ -213,12 +219,12 @@ public class MyScheduleActivity extends BaseActivity {
 				schedule.setMemo(cursor.getString(cursor.getColumnIndex("memo") ));				
 				schedule.setStartTime(cursor.getString(cursor.getColumnIndex("s_time") ));
 				schedule.setEndTime(cursor.getString(cursor.getColumnIndex("e_time") ));
-				list.add(schedule);
+				list[where] .add(schedule);
 
 			}while( cursor.moveToNext() );	// 다음 커서가 있으면 내용을 가져온다.
 		}	
 		// 아답터 셋팅
-		adapter[where] = new MyAdapter(list);
+		adapter[where] = new MyAdapter(list[where] );
 		listview[where].setAdapter(adapter[where]);
     	// 디비는 꼭 닫아준다.
 		db.close();
