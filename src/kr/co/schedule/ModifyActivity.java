@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -129,6 +130,13 @@ public class ModifyActivity extends BaseActivity implements
 		String memo = ((EditText) findViewById(R.id.memo)).getText().toString();
 		String classroom = ((EditText) findViewById(R.id.classroom)).getText()
 				.toString();
+		
+		// 과목명은 필수로 입력하게 함
+		if(TextUtils.isEmpty(subject)){
+			Toast.makeText(this, "과목명을 입력하세요", Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
 		// TODO Auto-generated method stub
 		MyDBHelper dbhp = new MyDBHelper(this); // 도우미 클래스
 		SQLiteDatabase db = dbhp.getReadableDatabase(); // 읽기모도로 해주자
