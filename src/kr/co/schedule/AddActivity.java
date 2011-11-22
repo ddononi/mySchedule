@@ -2,7 +2,6 @@ package kr.co.schedule;
 
 import java.util.Calendar;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -27,7 +26,7 @@ public class AddActivity extends BaseActivity implements TimePicker.OnTimeChange
         setContentView(R.layout.form_schedule);
         
         // 추가로 이름 변경
-        ((Button)findViewById(R.id.btn)).setText("스케쥴추가완료");        
+        ((Button)findViewById(R.id.btn)).setText("추가하기");        
         // 엘리먼트 후킹
         startPicker = (TimePicker)findViewById(R.id.s_time);
         endPicker = (TimePicker)findViewById(R.id.e_time);

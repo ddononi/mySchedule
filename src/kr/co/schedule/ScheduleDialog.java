@@ -32,18 +32,18 @@ public final class ScheduleDialog extends Dialog implements View.OnClickListener
 
 	}
 
-	private Schedule setScheduleData(String day, int orderNum) {
+	private Schedule setScheduleData(int idx) {
 		// TODO Auto-generated method stub
 		MyDBHelper mydb = new MyDBHelper(context);
 		SQLiteDatabase db = mydb.getReadableDatabase(); // 읽기모도로 해주자		
 		try{
 			Cursor cursor = null;
 			// 날짜와, 교시 로 해당 스켸쥴을 가져온다,.
-			cursor = db.query(MyDBHelper.DATABASE_TABLE, null, "day = ? and order_num = ?",
-					new String[] { day, String.valueOf(orderNum) }, null, null, null);
+			cursor = db.query(MyDBHelper.DATABASE_TABLE, null, "idx = ?",
+					new String[] {String.valueOf(idx), }, null, null, null);
 			if (cursor.moveToFirst()) { // cursor에 row가 1개 이상 있으면
 				schedule = new Schedule();
-				schedule.setDay(day);
+				schedule.setDay(cursor.getString(cursor.getColumnIndex("day")));
 				schedule.setSubject(cursor.getString(cursor.getColumnIndex("subject")));
 				schedule.setOrder(cursor.getInt(cursor.getColumnIndex("order_num")));
 				schedule.setProfessor(cursor.getString(cursor.getColumnIndex("professor")));
@@ -59,8 +59,8 @@ public final class ScheduleDialog extends Dialog implements View.OnClickListener
 		return schedule;
 	}
 
-	public final ScheduleDialog makeDialog(String day, int orderNum) {
-		if( setScheduleData(day, orderNum) == null){
+	public final ScheduleDialog makeDialog(int idx) {
+		if( setScheduleData(idx) == null){	// 검색된 데이터가 없으면 null
 			return null;
 		}
 		

@@ -55,7 +55,16 @@ public class MyScheduleActivity extends BaseActivity {
         setContentView(R.layout.main);
         
         initialize();
+        doStartService();
+        
     }
+
+	private void doStartService() {
+		// TODO Auto-generated method stub
+		// 서비스로 알람설정
+		Intent serviceIntent = new Intent(this, AlarmService.class);
+		startService(serviceIntent);
+	}
 
 	/**
 	 *	탭 설정 및 리스트 설정 
@@ -129,7 +138,8 @@ public class MyScheduleActivity extends BaseActivity {
     				list[i].add(schedule);
 
     			}while( cursor.moveToNext() );	// 다음 커서가 있으면 내용을 가져온다.
-    		}	
+    		}
+            final int ii = i;	// 이너클래스에서 i값을 읽기위해
     		// 아답터 셋팅
     		adapter[i] = new MyAdapter(list[i]);
             listview[i].setAdapter(adapter[i]);
@@ -142,12 +152,12 @@ public class MyScheduleActivity extends BaseActivity {
 				//	Toast.makeText(MyScheduleActivity.this , position +"", Toast.LENGTH_SHORT).show();
 					Log.i("aaa", position +"");
 					ScheduleDialog dlg = new ScheduleDialog(MyScheduleActivity.this, R.style.Dialog);
-					if(dlg.makeDialog(selectedDay, position) != null){
+					int idx = list[ii].get(position).getIndex();
+					if(dlg.makeDialog(idx) != null){
 						dlg.show();
 					}
 				}
 			});
-            final int ii = i;	// 이너클래스에서 i값을 읽기위해
             // deleteMode가 true일때 길게 누르면 삭제처리
             listview[i].setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -333,7 +343,6 @@ public class MyScheduleActivity extends BaseActivity {
 		@Override
 		public void onTick(long millisUntilFinished) {
 			// TODO Auto-generated method stub
-			Log.i("Test", " isTwoClickBack " + isTwoClickBack);
 		}
 
 	} 
