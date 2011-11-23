@@ -111,7 +111,7 @@ public class AlarmService extends Service {
 	 */
 	private boolean checkAlarmMinute(int alarmMin){
 		int min = calendar.get(Calendar.MINUTE);	// 현재 분 가져오기
-		if(alarmMin > min){	// 현재 분보다 크면 
+		if(alarmMin >= min){	// 현재 분보다 크면 
 			return true;
 		}
 		

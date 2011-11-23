@@ -57,15 +57,21 @@ public class MyScheduleActivity extends BaseActivity {
         setContentView(R.layout.main);
         
         initialize();
-        doStartService();
+     //   doStartService();
         
     }
 
 	private void doStartService() {
 		// TODO Auto-generated method stub
 		// 서비스로 알람설정
-		Intent serviceIntent = new Intent(this, AlarmService.class);
-		startService(serviceIntent);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isSetAlarm = sp.getBoolean("alarm", true);	
+		if(isSetAlarm){
+			Intent serviceIntent = new Intent(this, AlarmService.class);
+			stopService(serviceIntent);
+			startService(serviceIntent);
+			Log.i("dservice", "onPause!!");
+		}	
 	}
 
 	/**
@@ -291,15 +297,8 @@ public class MyScheduleActivity extends BaseActivity {
     @Override
 	protected void onPause() {
 		// TODO Auto-generated method stub
+		doStartService();
 		super.onPause();
-		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean isSetAlarm = sp.getBoolean("alarm", true);	
-		if(isSetAlarm){
-			Intent serviceIntent = new Intent(this, AlarmService.class);
-			stopService(serviceIntent);
-			startService(serviceIntent);
-			Log.i("dservice", "resume!!");
-		}		
 	}
 
 	@Override

@@ -6,7 +6,12 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,12 +23,45 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Toast.makeText(context, "알림 내용음 적을수있다", Toast.LENGTH_SHORT).show();
+	//	Toast.makeText(context, "알림 내용음 적을수있다", Toast.LENGTH_SHORT).show();
 		Log.i("service", "broadcast catch!!");
 		// 진동설정
-		Vibrator m_clsVibrator = (Vibrator) context
-				.getSystemService(Context.VIBRATOR_SERVICE);
-		m_clsVibrator.vibrate(1000);
+		/*
+		SharedPreferences ps = PreferenceManager.getDefaultSharedPreferences(context);
+		if(ps.getBoolean("vibration", true)){
+			Vibrator m_clsVibrator = (Vibrator) context
+					.getSystemService(Context.VIBRATOR_SERVICE);
+			m_clsVibrator.vibrate(1000);
+		}
+		*/
+		
+		//if(ps.getBoolean("sound", true)){
+			// 알림음
+
+		// 사운드풀 생성하기
+		// ** prameters **
+		// 1: 동시출력 가능 스트림수
+		// 2: AudioManager에 정의된 스트림 타입
+		// 3: sample rate 컨버터의 품질. default로 0을 줌
+	//	SoundPool sound_pool = new  SoundPool(5, AudioManager.STREAM_MUSIC, 0);
+
+		// 사운드풀 로드하기
+		// ** prameters **
+		// 1: context
+		// 2: resource
+		// 3: priority
+	//	int sound_correct = sound_pool.load(context.getApplicationContext(), R.raw.sound, 1);
+
+		// 미디어 재생하기
+		// ** prameters **
+		// 1: 리소스 식별 
+		// 2-3: 소리크기 
+		// 4: 우선순위
+		// 5: 파라미터 반복정보(0:반복x, 1:1번반복(총2번), -1:무한반복)
+		// 6: 재생속도(1:1x, 2:2x)
+	//	sound_pool.play(sound_correct, 1.0f, 1.0f, 1, 3, 1.0f);
+		//}
+		
 		// 알림설정
 		showNotification(context, R.drawable.alarm);
 	}
@@ -44,10 +82,20 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 		Notification notif = new Notification(statusBarIconID, null,
 				System.currentTimeMillis());
+		
+		notif.flags |= Notification.FLAG_AUTO_CANCEL;	// 클릭시 사라지게
+		notif.defaults |= Notification.DEFAULT_SOUND;	// 클릭시 사라지게
+		
+		
+		long[] vibrate = {1000, 1000, 1000};  
+		notif.defaults |= Notification.DEFAULT_VIBRATE;  
+		notif.vibrate = vibrate;  	
+		
 		notif.setLatestEventInfo(context, title, message, theappIntent);
-
 		NotificationManager nm = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
+
+		
 		nm.notify(this.YOURAPP_NOTIFICATION_ID, notif);
 	}
 }
