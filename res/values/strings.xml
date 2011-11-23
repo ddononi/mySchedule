@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MyScheduleActivity!</string>
-    <string name="app_name">MySchedule</string>
-	<string-array name="aaaaa">
-	    <item >1</item>
-	    <item >2</item>
-	    <item >3</item>
-	    <item >4</item>
-	    <item >5</item>
-	    
-	</string-array>
+    <string name="app_name">시간표알리미</string>
+
+    <string-array name="time_list_preference">
+        <item>10분전</item>
+        <item>5분전</item>
+        <item>3분전</item>
+    </string-array>
+    
+    <string-array name="time_list_value_preference">
+        <item>10</item>
+        <item>5</item>
+        <item>3</item>
+    </string-array>
+
 </resources>

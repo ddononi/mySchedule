@@ -1,14 +1,34 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <PreferenceCategory android:title="알림설정" >
+    <PreferenceCategory android:title="알람설정" >
+
+        <CheckBoxPreference
+            android:key="alarm"
+            android:defaultValue="true"
+            android:summary="시작시간이 되면 알람 설정"
+            android:title="알람설정" />
+
+        <ListPreference
+            android:dialogTitle="발생시간"
+            android:entries="@array/time_list_preference"
+            android:entryValues="@array/time_list_value_preference"
+            android:key="beforeAlarm"
+            android:summary="시작시간전 알람 발생설정"
+            android:title="알람시간" />
+        
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="알람방식설정" >
 
         <CheckBoxPreference
             android:key="sound"
+            android:defaultValue="true"
             android:summary="알람이 발생하면 사운드로 알려줌"
             android:title="소리알림" />
 
         <CheckBoxPreference
             android:key="vibration"
+            android:defaultValue="true"
             android:summary="알람이 발생하면  진동으로 알려줌"
             android:title="진동발생" />
     </PreferenceCategory>
@@ -17,8 +37,8 @@
 
         <PreferenceScreen
             android:key="version"
-            android:title="프로그램 버전"
-            android:summary="MySchedule Ver 0.9b" />
+            android:summary="시간표알리미 Ver 0.9b"
+            android:title="프로그램 버전" />
     </PreferenceCategory>
 
 </PreferenceScreen>

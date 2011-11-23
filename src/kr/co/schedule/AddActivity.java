@@ -65,8 +65,6 @@ public class AddActivity extends BaseActivity implements TimePicker.OnTimeChange
 	@Override
 	public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
 		// TODO Auto-generated method stub
-		//startPicker.setText(String.format("%d : %d", hourOfDay, minute));
-		//Toast.makeText(this, String.format("%d : %d", hourOfDay, minute), Toast.LENGTH_SHORT).show();
 	}
 	
 	/** 추가 버튼 클릭 */

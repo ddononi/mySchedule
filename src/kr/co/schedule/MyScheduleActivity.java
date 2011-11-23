@@ -5,11 +5,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -282,9 +284,25 @@ public class MyScheduleActivity extends BaseActivity {
     	}
     	return false;
     }
+    
+    
 
     
     @Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean isSetAlarm = sp.getBoolean("alarm", true);	
+		if(isSetAlarm){
+			Intent serviceIntent = new Intent(this, AlarmService.class);
+			stopService(serviceIntent);
+			startService(serviceIntent);
+			Log.i("dservice", "resume!!");
+		}		
+	}
+
+	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, data);
