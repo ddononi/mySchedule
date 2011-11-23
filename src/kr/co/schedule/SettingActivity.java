@@ -4,8 +4,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-
-
+/**
+ *	환경 설정 엑티비티
+ */
 public class SettingActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 
 	@Override

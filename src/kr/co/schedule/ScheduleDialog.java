@@ -10,7 +10,6 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher.ViewFactory;
@@ -18,7 +17,6 @@ import android.widget.ViewSwitcher.ViewFactory;
 public final class ScheduleDialog extends Dialog implements View.OnClickListener {
 	private Context context;
 	private LayoutInflater inflater;	// 레이아웃 전개를 위한 인플레이터
-	private ImageButton star;			// 북마크 (별) 이미지버튼
 	private Schedule schedule = null;		// 스케쥴 정보를 담을 객체
 
 	public ScheduleDialog(Context context, int theme) {

@@ -1,27 +1,24 @@
 package kr.co.schedule;
 
 import java.util.ArrayList;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.Toast;
@@ -57,7 +54,7 @@ public class MyScheduleActivity extends BaseActivity {
         setContentView(R.layout.main);
         
         initialize();
-     //   doStartService();
+        doStartService();
         
     }
 
@@ -70,7 +67,7 @@ public class MyScheduleActivity extends BaseActivity {
 			Intent serviceIntent = new Intent(this, AlarmService.class);
 			stopService(serviceIntent);
 			startService(serviceIntent);
-			Log.i("dservice", "onPause!!");
+			Log.i("dservice", "service start!!");
 		}	
 	}
 
@@ -81,7 +78,7 @@ public class MyScheduleActivity extends BaseActivity {
 		// TODO Auto-generated method stub
         TabHost host = (TabHost)findViewById(R.id.tabhost);
         host.setup();	// 탭 초기화
-        
+
         // 월요일
         TabSpec mon = host.newTabSpec("월");	// 새로운 탭을 생성
         mon.setIndicator("월");
@@ -110,7 +107,19 @@ public class MyScheduleActivity extends BaseActivity {
         TabSpec fri = host.newTabSpec("금");
         fri.setIndicator("금");
         fri.setContent(R.id.friday);
-        host.addTab(fri);	  
+        host.addTab(fri);	
+        
+        /*
+         * 통지바에서 요일순번이 넘어왔으면 
+         * 해당 요일로 탭포커스를 설정
+         */
+        Intent intent = getIntent();	
+        int whenDay = 0;	// 없으면 월요일로 
+        if(! TextUtils.isEmpty(intent.getStringExtra("whenDay")) ){
+        	whenDay = Integer.valueOf(intent.getStringExtra("whenDay"));
+        }
+        host.setCurrentTab(whenDay);        
+
         // 탭 이동시 날짜 알아내기
         host.setOnTabChangedListener(new OnTabChangeListener() {
 			@Override
@@ -290,15 +299,12 @@ public class MyScheduleActivity extends BaseActivity {
     	}
     	return false;
     }
-    
-    
 
-    
-    @Override
-	protected void onPause() {
+	@Override
+	protected void onStop() {
 		// TODO Auto-generated method stub
 		doStartService();
-		super.onPause();
+		super.onStop();
 	}
 
 	@Override
