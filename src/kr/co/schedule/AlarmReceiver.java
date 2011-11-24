@@ -52,10 +52,10 @@ public class AlarmReceiver extends BroadcastReceiver {
 		//notif.defaults |= Notification.DEFAULT_SOUND;	// 기본 sound도 키자
 		
 		//	진동알람을 설정했으면 진동을 울린다.
-		if( sp.getBoolean("vabration", true) ){
+		if( sp.getBoolean("vibration", true) ){
 			long[] vibrate = {1000, 1000, 1000, 1000, 1000};  // 1초간 5번 
 			notif.vibrate = vibrate;  
-		}
+		}		
 		
 		//	소리알람을 설정했으면 소리를 울린다.
 		if( sp.getBoolean("sound", true) ){		
