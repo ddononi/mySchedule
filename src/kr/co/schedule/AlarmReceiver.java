@@ -40,11 +40,12 @@ public class AlarmReceiver extends BroadcastReceiver {
 		Intent contentIntent = new Intent(context, MyScheduleActivity.class);
 		contentIntent.putExtra("whenDay", whenDay);	// 요일이 언제인지 같이 싣어 보낸다.
 		// 알림클릭시 이동할 엑티비티 설정
-		PendingIntent theappIntent = PendingIntent.getActivity(context, 0,contentIntent, 0);
+		PendingIntent theappIntent = PendingIntent.getActivity(context, 0, contentIntent, 0);
 		CharSequence title = "시간표 알리미"; // 알림 타이틀
 		CharSequence message = subject + "수업 "+ before + "분전 입니다."; // 알림 내용
+		CharSequence tickerText = message;	// 티커 메세지
 
-		Notification notif = new Notification(statusBarIconID, null,
+		Notification notif = new Notification(statusBarIconID, tickerText,
 				System.currentTimeMillis());
 		
 		notif.flags |= Notification.FLAG_AUTO_CANCEL;	// 클릭시 사라지게
